@@ -1,9 +1,52 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>GitHub Pages</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hearts Animation</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-<h1>Welcome to GitHub Pages!</h1>
-<p>This is a simple page served through GitHub Pages.</p>
+    <script>
+        // Three.js heart animation setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const heartGeometry = new THREE.BufferGeometry();
+        const heartMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+        // Define heart shape points and buffer geometry here.
+        // Example points...
+        const points = new Float32Array([
+            // Heart shape vertices...
+        ]);
+        heartGeometry.setAttribute('position', new THREE.BufferAttribute(points, 3));
+        const heart = new THREE.Mesh(heartGeometry, heartMaterial);
+        scene.add(heart);
+
+        camera.position.z = 5;
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            heart.rotation.x += 0.01;
+            heart.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        function triggerConfetti() {
+            confetti();
+        }
+        // Trigger confetti on heart click
+        heart.callback = triggerConfetti;
+    </script>
 </body>
 </html>
